@@ -22,8 +22,6 @@ Package.on_use(function (api) {
   } else {
     api.use(['handlebars'], 'client', {weak: true});
   }
-  
-  api.use(['blaze@2.0.0'], 'client', {weak: true});
 
   api.export && api.export('Roles');
 
