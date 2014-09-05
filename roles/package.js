@@ -6,17 +6,21 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.versionsFrom && api.versionsFrom("METEOR@0.9.0");
   var both = ['client', 'server'];
-  api.use(['underscore', 'accounts-base'], both);
-  api.use(['handlebars'], 'client', {weak: true});
 
-  // This is needed due to Meteor Issue #1358
-  //   https://github.com/meteor/meteor/issues/1358
-  // The 'weak' flag doesn't work with packages that aren't 
-  // in meteor's internal cache (ie. non-core packages)
-  if(uiExists()) {
+  api.use(['underscore', 'accounts-base'], both);
+
+  if (api.versionsFrom) {
+    api.use(['blaze'], 'client', {weak: true});
+  } else if(uiExists()) {
+    // This is needed due to Meteor Issue #1358
+    //   https://github.com/meteor/meteor/issues/1358
+    //
+    // In meteor < 0.9, the 'weak' flag doesn't work with packages 
+    // that aren't in meteor's internal cache (ie. non-core packages)
     api.use(['ui'], 'client', {weak: true});
+  } else {
+    api.use(['handlebars'], 'client', {weak: true});
   }
   
   api.use(['blaze@2.0.0'], 'client', {weak: true});

@@ -10,6 +10,8 @@
  * @module UIHelpers
  */
 
+var _registerHelper
+
 ////////////////////////////////////////////////////////////
 // UI helpers
 //
@@ -69,20 +71,29 @@ Roles._uiHelpers = {
   }
 }
 
-if(Package.blaze) {
-  _.each(Roles._uiHelpers, function (func, name) {
-    Package.blaze.Blaze.registerHelper(name, func) 
-  })
+
+// Attempt to register ui helper
+
+if (Package.blaze && Package.blaze.Blaze.registerHelper) {
+  // Meteor 0.9.1
+  //console.log(' Meteor 0.9.1')
+  _registerHelper = Package.blaze.Blaze.registerHelper
 } else if (Package.ui) {
-  _.each(Roles._uiHelpers, function (func, name) {
-    Package.ui.UI.registerHelper(name, func) 
-  })
+  // Meteor 0.8 - 0.9.0.1
+  //console.log(' Meteor 0.8 - 0.9.0.1')
+  _registerHelper = Package.ui.UI.registerHelper
 } else if (Package.handlebars) {
+  // Meteor <0.8
+  //console.log(' Meteor <0.8')
+  _registerHelper = Package.handlebars.Handlebars.registerHelper
+}
+
+if (_registerHelper) {
   _.each(Roles._uiHelpers, function (func, name) {
-    Package.handlebars.Handlebars.registerHelper(name, func)
+    _registerHelper(name, func)
   })
 } else {
-  console.log && console.log('WARNING: Roles template helpers not registered. Handlebars or UI package not found')
+  console.log && console.log('WARNING: Roles template helpers not registered. Handlebars, UI, or Blaze packages not found')
 }
 
 }());
