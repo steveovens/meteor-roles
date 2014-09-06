@@ -1,6 +1,6 @@
 Package.describe({
   summary: "Role-based authorization",
-  version: "1.2.12",
+  version: "1.2.13",
   git: "https://github.com/alanning/meteor-roles.git",
   name: "alanning:roles"
 });
@@ -11,7 +11,8 @@ Package.on_use(function (api) {
   api.use(['underscore', 'accounts-base'], both);
 
   if (api.versionsFrom) {
-    api.use(['blaze'], 'client', {weak: true});
+    api.versionsFrom('METEOR@0.9.1');
+    api.use(['blaze@2.0.0'], 'client', {weak: true});
   } else if(uiExists()) {
     // This is needed due to Meteor Issue #1358
     //   https://github.com/meteor/meteor/issues/1358

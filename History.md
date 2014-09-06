@@ -1,3 +1,16 @@
+## v1.2.13
+
+* Specific release just for bug in Meteor 0.9.1 [1].  #53
+
+  Note: Supporting both 0.9.0 and 0.9.1 with the same code base is not
+  possible [2] so this version only supports Meteor <0.9.0 and 0.9.1+;
+  not 0.9.0 or 0.9.0.1.  Users of 0.9.0 will still use v1.2.12 which has
+  no functional differences.
+
+  1. https://github.com/meteor/meteor/issues/2521#issuecomment-54702099
+  2. https://github.com/meteor/meteor/issues/2531
+
+
 ## v1.2.12
 
 * Support Meteor 0.9.0 - new packaging system (hopefully). #52
