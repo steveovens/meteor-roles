@@ -74,15 +74,16 @@ Roles._uiHelpers = {
 
 // Attempt to register ui helper
 
-if (Package.blaze && Package.blaze.Blaze.registerHelper) {
+if (Package.blaze && Package.blaze.Blaze && 
+    Package.blaze.Blaze.registerHelper) {
   // Meteor 0.9.1
   //console.log(' Meteor 0.9.1')
   _registerHelper = Package.blaze.Blaze.registerHelper
-} else if (Package.ui) {
+} else if (Package.ui && Package.ui.UI) {
   // Meteor 0.8 - 0.9.0.1
   //console.log(' Meteor 0.8 - 0.9.0.1')
   _registerHelper = Package.ui.UI.registerHelper
-} else if (Package.handlebars) {
+} else if (Package.handlebars && Package.handlebars.Handlebars) {
   // Meteor <0.8
   //console.log(' Meteor <0.8')
   _registerHelper = Package.handlebars.Handlebars.registerHelper
