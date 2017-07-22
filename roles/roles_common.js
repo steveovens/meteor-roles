@@ -359,8 +359,8 @@ _.extend(Roles, {
       query.$or.push({roles: {$in: roles}})
     }
 
-    found = Meteor.users.findOne(query, {fields: {_id: 1}})
-    return found ? true : false
+    found = Meteor.users.find(query, {limit: 1, fields: {_id: 1}}).count()
+    return !!found
   },
 
   /**
